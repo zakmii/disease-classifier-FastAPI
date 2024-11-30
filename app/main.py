@@ -56,6 +56,6 @@ async def predict(input_data: PredictionInput):
             detail=f"An unexpected error occurred: {str(e)}"
         )
 
-        @app.get("/", include_in_schema=False)
-        async def redirect_to_docs():
-            return RedirectResponse(url="/docs")
+@app.get("/", include_in_schema=False)
+async def redirect_to_docs():
+    return RedirectResponse(url="/docs")
