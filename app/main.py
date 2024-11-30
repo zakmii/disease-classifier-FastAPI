@@ -2,6 +2,7 @@ import joblib
 import numpy as np
 from fastapi import FastAPI, HTTPException
 from .schema import PredictionInput, PredictionResponse
+from fastapi.responses import RedirectResponse
 
 app = FastAPI(
     title="Disease Prediction API",
@@ -54,3 +55,7 @@ async def predict(input_data: PredictionInput):
             status_code=500,
             detail=f"An unexpected error occurred: {str(e)}"
         )
+
+        @app.get("/", include_in_schema=False)
+        async def redirect_to_docs():
+            return RedirectResponse(url="/docs")
