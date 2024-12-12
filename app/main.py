@@ -3,6 +3,7 @@ import numpy as np
 from fastapi import FastAPI, HTTPException
 from .schema import PredictionInput, PredictionResponse
 from fastapi.responses import RedirectResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="Disease Prediction API",
@@ -59,3 +60,12 @@ async def predict(input_data: PredictionInput):
 @app.get("/", include_in_schema=False)
 async def redirect_to_docs():
     return RedirectResponse(url="/docs")
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
